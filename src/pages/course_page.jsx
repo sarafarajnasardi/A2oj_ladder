@@ -1,6 +1,6 @@
 import React, { useState } from "react";
-import { useNavigate, Outlet } from "react-router-dom";
-import { Code, Layers, Calendar, ExternalLink, BookOpen } from "lucide-react";
+import { useNavigate } from "react-router-dom";
+import { Code, Layers, Calendar, BookOpen } from "lucide-react";
 import Cp_Sheets from "./cp_sheets";
 import UpcomingContestsPage from "./upcoming_contest";
 
@@ -12,7 +12,6 @@ const CoursePage = () => {
     setActiveTab(tabIndex);
   };
 
-  // Import the ArrowRight icon that was missing
   const ArrowRight = ({ className }) => (
     <svg 
       xmlns="http://www.w3.org/2000/svg" 
@@ -30,88 +29,119 @@ const CoursePage = () => {
   );
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-indigo-50 via-blue-50 to-purple-50">
-      {/* Sticky Hero Section */}
-      <div className="sticky top-0 z-10 bg-gradient-to-r from-blue-600 to-indigo-700 shadow-xl p-6">
-  <div className="max-w-6xl mx-auto">
-    {/* Header Content with enhanced visual design */}
-    <div className="flex flex-col md:flex-row md:items-center md:justify-between">
-      {/* Left side: Logo and title */}
-      <div className="flex items-center">
-        <div className="bg-white p-3 rounded-full shadow-lg transform hover:scale-105 transition-transform duration-300">
-          <Code className="h-8 w-8 text-indigo-700" />
+    <div className="min-h-screen w-full bg-gradient-to-br from-gray-50 to-white">
+      {/* Hero Section with Centered Content */}
+      <div className="container mx-auto px-4 py-12 text-center">
+        <div className="inline-block bg-black p-4 rounded-full shadow-lg mb-6">
+          <Code className="h-8 w-8 text-white" />
         </div>
-        <div className="ml-4">
-          <h1 className="text-3xl md:text-4xl font-extrabold text-white tracking-tight">
-            <span className="text-blue-200">Competitive</span> Programming
-          </h1>
-          <p className="text-blue-100 mt-2 text-lg max-w-2xl">
-            Master algorithmic challenges with our curated collection
+      </div>
+
+      {/* Responsive Navigation Pills */}
+      <div className="container mx-auto px-4 mb-10">
+        <div className="flex flex-wrap justify-center space-x-3 space-y-2">
+          <button
+            onClick={() => handleTabChange(0)}
+            className={`px-5 py-2 rounded-lg text-sm font-medium transition-all duration-200 flex items-center ${
+              activeTab === 0 
+                ? "bg-black text-white shadow-md" 
+                : "bg-gray-100 text-gray-700 hover:bg-gray-200"
+            }`}
+          >
+            <BookOpen className="h-4 w-4 mr-2" />
+            Sheets
+          </button>
+          <button
+            onClick={() => handleTabChange(1)}
+            className={`px-5 py-2 rounded-lg text-sm font-medium transition-all duration-200 flex items-center ${
+              activeTab === 1 
+                ? "bg-black text-white shadow-md" 
+                : "bg-gray-100 text-gray-700 hover:bg-gray-200"
+            }`}
+          >
+            <Calendar className="h-4 w-4 mr-2" />
+            Contests
+          </button>
+          <button
+            className="px-5 py-2 rounded-lg text-sm font-medium transition-all duration-200 flex items-center bg-gray-100 text-gray-700 hover:bg-gray-200"
+          >
+            <Layers className="h-4 w-4 mr-2" />
+            Paths
+          </button>
+        </div>
+      </div>
+
+      {/* Content Area with Dynamic Layout */}
+      <div className="container mx-auto px-4 py-8">
+        <div className="relative">
+          <div className="bg-white rounded-2xl shadow-xl border border-gray-100 overflow-hidden">
+            <div className="p-6 md:p-10">
+              {activeTab === 0 ? (
+                <Cp_Sheets />
+              ) : (
+                <UpcomingContestsPage />
+              )}
+            </div>
+          </div>
+        </div>
+      </div>
+
+      {/* Responsive Feature Cards */}
+      <div className="container mx-auto px-4 py-16">
+        <div className="grid md:grid-cols-3 gap-8">
+          {[
+            {
+              icon: <BookOpen className="h-6 w-6 text-white" />,
+              title: "Problem Sheets",
+              description: "Curated collections of problems organized by difficulty and algorithm type",
+              action: "Explore sheets"
+            },
+            {
+              icon: <Calendar className="h-6 w-6 text-white" />,
+              title: "Upcoming Contests",
+              description: "Stay updated with the latest competitive programming contests and events",
+              action: "View contests"
+            },
+            {
+              icon: <Layers className="h-6 w-6 text-white" />,
+              title: "Learning Paths",
+              description: "Structured guides to master algorithms and data structures step by step",
+              action: "Start learning"
+            }
+          ].map((card, index) => (
+            <div 
+              key={index} 
+              className="bg-white p-8 rounded-2xl shadow-lg border border-gray-100 hover:shadow-xl transition-all duration-300 transform hover:-translate-y-2"
+            >
+              <div className="bg-black p-4 rounded-full w-16 h-16 flex items-center justify-center mb-6">
+                {card.icon}
+              </div>
+              <h3 className="text-xl font-bold text-black mb-3">{card.title}</h3>
+              <p className="text-gray-600 mb-6">{card.description}</p>
+              <button className="flex items-center text-sm font-semibold text-black hover:text-gray-700 group">
+                {card.action}
+                <span className="ml-2 group-hover:translate-x-1 transition-transform">
+                  <ArrowRight className="h-4 w-4" />
+                </span>
+              </button>
+            </div>
+          ))}
+        </div>
+      </div>
+
+      {/* Footer with Call to Action */}
+      <div className="bg-gray-50 text-black py-16">
+        <div className="container mx-auto px-4 text-center">
+          <div className="inline-block bg-black p-4 rounded-full shadow-lg mb-6">
+            <Code className="h-8 w-8 text-white" />
+          </div>
+          <p className="text-gray-600 text-lg max-w-xl mx-auto mb-8">
+            Enhance your problem-solving abilities through structured practice
           </p>
+          <button className="px-10 py-4 bg-black text-white rounded-lg text-sm font-bold hover:bg-gray-900 transition-colors shadow-xl">
+            Get Started
+          </button>
         </div>
-      </div>
-      
-      {/* Right side: Stats counter */}
-      <div className="hidden md:flex space-x-6 mt-4 md:mt-0">
-        <div className="text-center">
-          <div className="text-3xl font-bold text-white">1800+</div>
-          <p className="text-blue-200 text-sm">Problems</p>
-        </div>
-        <div className="text-center">
-          <div className="text-3xl font-bold text-white">50+</div>
-          <p className="text-blue-200 text-sm">Algorithms</p>
-        </div>
-      </div>
-    </div>
-    
-    {/* Navigation buttons with enhanced styling */}
-    <div className="mt-6 flex flex-wrap gap-4">
-      <button
-        onClick={() => handleTabChange(0)}
-        className="px-5 py-2.5 bg-white text-indigo-700 rounded-lg shadow-lg hover:shadow-xl transition-all duration-200 text-sm font-medium flex items-center border-2 border-white hover:bg-blue-50"
-      >
-        <BookOpen className="h-4 w-4 mr-2" />
-        CP Sheets
-      </button>
-      <button
-        onClick={() => handleTabChange(1)}
-        className="px-5 py-2.5 bg-indigo-900 bg-opacity-30 text-white rounded-lg hover:bg-opacity-40 transition-all duration-200 text-sm font-medium flex items-center border-2 border-blue-300 border-opacity-30 hover:border-opacity-50 shadow-lg"
-      >
-        <ExternalLink className="h-4 w-4 mr-2" />
-        Upcoming Contests
-      </button>
-      
-      {/* Added a third button for visual balance */}
-      <button
-        className="px-5 py-2.5 bg-blue-500 bg-opacity-30 text-white rounded-lg hover:bg-opacity-40 transition-all duration-200 text-sm font-medium flex items-center border-2 border-blue-300 border-opacity-30 hover:border-opacity-50 shadow-lg"
-      >
-        <Layers className="h-4 w-4 mr-2" />
-        Learning Paths
-      </button>
-    </div>
-    
-    {/* Decorative element */}
-    <div className="absolute top-0 right-0 -mt-4 -mr-4 h-24 w-24 opacity-20 hidden md:block">
-      <div className="w-full h-full rounded-full bg-white blur-xl"></div>
-    </div>
-  </div>
-</div>
-
-
-      {/* Content Area */}
-      <div className="max-w-6xl mx-auto px-4 mt-8 pb-12">
-        {activeTab === 0 ? (
-          <Cp_Sheets />
-        ) : (
-          <UpcomingContestsPage />
-        )}
-      </div>
-
-
-      {/* Footer Info */}
-      <div className="max-w-2xl mx-auto text-center mt-16 px-4 pb-8">
-        <div className="text-lg font-medium text-indigo-600 mb-2">Ready to improve your skills?</div>
-        <p className="text-gray-600">Enhance your problem-solving abilities through structured practice and consistent effort</p>
       </div>
     </div>
   );

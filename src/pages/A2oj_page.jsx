@@ -155,57 +155,57 @@ const A2oJ = () => {
   };
 
   return (
-    <div className="min-h-screen">
+    <div className=" min-h-screen bg-white">
       <div className="mb-8">
-        <h2 className="text-2xl font-bold text-indigo-800 mb-2">A2OJ Ladder</h2>
-        <p className="text-gray-600 mb-6">
+        <h2 className="text-2xl font-bold text-black mb-2">A2OJ Ladder</h2>
+        <p className="text-gray-700 mb-6">
           Access structured problem sets organized by Codeforces rating or division. 
           Enter your Codeforces handle to track your progress.
         </p>
         
         <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
-          <div className="bg-blue-50 p-4 rounded-lg border border-blue-100">
-            <div className="font-medium text-blue-700 mb-1 flex items-center">
+          <div className="bg-gray-50 p-4 rounded-lg border border-gray-200">
+            <div className="font-medium text-black mb-1 flex items-center">
               <Award className="h-4 w-4 mr-2" />
               Rating-Based
             </div>
-            <p className="text-sm text-gray-600">Problems organized by Codeforces rating range</p>
+            <p className="text-sm text-gray-700">Problems organized by Codeforces rating range</p>
           </div>
           
-          <div className="bg-purple-50 p-4 rounded-lg border border-purple-100">
-            <div className="font-medium text-purple-700 mb-1 flex items-center">
+          <div className="bg-gray-50 p-4 rounded-lg border border-gray-200">
+            <div className="font-medium text-black mb-1 flex items-center">
               <Zap className="h-4 w-4 mr-2" />
               Skill Progression
             </div>
-            <p className="text-sm text-gray-600">Problems increase in difficulty as you advance</p>
+            <p className="text-sm text-gray-700">Problems increase in difficulty as you advance</p>
           </div>
           
-          <div className="bg-indigo-50 p-4 rounded-lg border border-indigo-100">
-            <div className="font-medium text-indigo-700 mb-1 flex items-center">
+          <div className="bg-gray-50 p-4 rounded-lg border border-gray-200">
+            <div className="font-medium text-black mb-1 flex items-center">
               <Code className="h-4 w-4 mr-2" />
               Topic Coverage
             </div>
-            <p className="text-sm text-gray-600">Diverse problem types to build comprehensive skills</p>
+            <p className="text-sm text-gray-700">Diverse problem types to build comprehensive skills</p>
           </div>
         </div>
       </div>
       
-      <div className="bg-white rounded-xl shadow-md border border-gray-100 p-6">
+      <div className="bg-white rounded-xl shadow-md border border-gray-200 p-6">
         <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
           <div className="space-y-6">
             {/* Username Input */}
             <div className="space-y-2">
-              <label className="flex items-center text-sm font-medium text-gray-700">
+              <label className="flex items-center text-sm font-medium text-gray-800">
                 <User className="h-4 w-4 mr-2" />
                 Codeforces Username
-                <span className="ml-1 text-red-500">*</span>
+                <span className="ml-1 text-gray-800">*</span>
               </label>
               <div className="relative">
                 <input
                   type="text"
                   value={username}
                   onChange={(e) => setUsername(e.target.value)}
-                  className="w-full bg-gray-50 text-black px-4 py-3 rounded-lg border border-gray-300 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-transparent transition-all duration-200"
+                  className="w-full bg-gray-50 text-black px-4 py-3 rounded-lg border border-gray-300 focus:outline-none focus:ring-2 focus:ring-gray-500 focus:border-transparent transition-all duration-200"
                   placeholder="Enter your username"
                 />
               </div>
@@ -213,13 +213,13 @@ const A2oJ = () => {
     
             {/* Ladder Type Dropdown */}
             <div className="space-y-2" ref={ladderTypeDropdownRef}>
-              <label className="flex items-center text-sm font-medium text-gray-700">
+              <label className="flex items-center text-sm font-medium text-gray-800">
                 <Award className="h-4 w-4 mr-2" />
                 Ladder Type
               </label>
               <div className="relative">
                 <div 
-                  className="w-full bg-gray-50 text-black px-4 py-3 rounded-lg cursor-pointer flex items-center justify-between border border-gray-300 hover:border-indigo-300 transition-all duration-200"
+                  className="w-full bg-gray-50 text-black px-4 py-3 rounded-lg cursor-pointer flex items-center justify-between border border-gray-300 hover:border-gray-500 transition-all duration-200"
                   onClick={() => setIsLadderTypeOpen(!isLadderTypeOpen)}
                 >
                   <span>{selectedLadderType}</span>
@@ -234,7 +234,7 @@ const A2oJ = () => {
                     {ladderTypes.map((type, index) => (
                       <div 
                         key={index}
-                        className="px-4 py-3 text-black hover:bg-indigo-50 cursor-pointer transition-colors duration-150"
+                        className="px-4 py-3 text-black hover:bg-gray-100 cursor-pointer transition-colors duration-150"
                         onClick={() => {
                           setSelectedLadderType(type);
                           setIsLadderTypeOpen(false);
@@ -252,7 +252,7 @@ const A2oJ = () => {
           <div className="space-y-6">
             {/* Rating/Division Selection */}
             <div className="space-y-2" ref={ratingDropdownRef}>
-              <label className="flex items-center text-sm font-medium text-gray-700">
+              <label className="flex items-center text-sm font-medium text-gray-800">
                 <Award className="h-4 w-4 mr-2" />
                 {selectedLadderType === 'Rating' ? 'By Rating' : 
                 selectedLadderType === 'Division' ? 'By Division' : 
@@ -260,7 +260,7 @@ const A2oJ = () => {
               </label>
               <div className="relative">
                 <div 
-                  className="w-full bg-gray-50 text-black px-4 py-3 rounded-lg cursor-pointer flex items-center justify-between border border-gray-300 hover:border-indigo-300 transition-all duration-200"
+                  className="w-full bg-gray-50 text-black px-4 py-3 rounded-lg cursor-pointer flex items-center justify-between border border-gray-300 hover:border-gray-500 transition-all duration-200"
                   onClick={() => setIsRatingDropdownOpen(!isRatingDropdownOpen)}
                 >
                   <span>{getCurrentSelection()}</span>
@@ -275,7 +275,7 @@ const A2oJ = () => {
                     {getDropdownOptions().map((option, index) => (
                       <div 
                         key={index}
-                        className="px-4 py-3 text-black hover:bg-indigo-50 cursor-pointer transition-colors duration-150"
+                        className="px-4 py-3 text-black hover:bg-gray-100 cursor-pointer transition-colors duration-150"
                         onClick={() => handleOptionSelect(option)}
                       >
                         {option}
@@ -290,14 +290,14 @@ const A2oJ = () => {
             <div className="pt-4">
               <button 
                 onClick={handleViewLadder} 
-                className="w-full bg-indigo-600 hover:bg-indigo-700 text-white font-medium px-6 py-3 rounded-lg transition-colors duration-200 shadow-md hover:shadow-lg flex items-center justify-center"
+                className="w-full bg-black hover:bg-gray-800 text-white font-medium px-6 py-3 rounded-lg transition-colors duration-200 shadow-md hover:shadow-lg flex items-center justify-center"
               >
                 <Code className="h-5 w-5 mr-2" />
                 View Ladder
               </button>
             </div>
             
-            <div className="mt-2 text-center text-sm text-gray-500">
+            <div className="mt-2 text-center text-sm text-gray-600">
               {selectedLadderType === 'Rating' ? 
                 <span>Problems suitable for your current Codeforces rating</span> :
                 <span>Problems grouped by Codeforces division level</span>
@@ -308,27 +308,27 @@ const A2oJ = () => {
       </div>
       
       <div className="mt-8 bg-gray-50 rounded-lg p-6 border border-gray-200">
-        <h3 className="font-medium text-gray-800 mb-3">About A2OJ Ladders</h3>
-        <p className="text-gray-600 text-sm mb-4">
+        <h3 className="font-medium text-black mb-3">About A2OJ Ladders</h3>
+        <p className="text-gray-700 text-sm mb-4">
           A2OJ Ladders is a collection of problems from Codeforces organized by difficulty. 
           It helps competitive programmers improve their skills by practicing problems appropriate for their level.
         </p>
         <div className="grid grid-cols-1 md:grid-cols-2 gap-4 text-sm">
           <div className="flex items-center">
-            <div className="w-2 h-2 bg-indigo-500 rounded-full mr-2"></div>
-            <span className="text-gray-700">Track your solved problems</span>
+            <div className="w-2 h-2 bg-black rounded-full mr-2"></div>
+            <span className="text-gray-800">Track your solved problems</span>
           </div>
           <div className="flex items-center">
-            <div className="w-2 h-2 bg-indigo-500 rounded-full mr-2"></div>
-            <span className="text-gray-700">Gradually increase difficulty</span>
+            <div className="w-2 h-2 bg-black rounded-full mr-2"></div>
+            <span className="text-gray-800">Gradually increase difficulty</span>
           </div>
           <div className="flex items-center">
-            <div className="w-2 h-2 bg-indigo-500 rounded-full mr-2"></div>
-            <span className="text-gray-700">Improve problem-solving skills</span>
+            <div className="w-2 h-2 bg-black rounded-full mr-2"></div>
+            <span className="text-gray-800">Improve problem-solving skills</span>
           </div>
           <div className="flex items-center">
-            <div className="w-2 h-2 bg-indigo-500 rounded-full mr-2"></div>
-            <span className="text-gray-700">Prepare for contests efficiently</span>
+            <div className="w-2 h-2 bg-black rounded-full mr-2"></div>
+            <span className="text-gray-800">Prepare for contests efficiently</span>
           </div>
         </div>
       </div>

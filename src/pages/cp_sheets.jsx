@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Code, Layers, BookOpen, ExternalLink, ArrowRight } from "lucide-react";
+import { Code, Layers, BookOpen, ExternalLink, ArrowRight, Activity, Hash } from "lucide-react";
 import CP31 from "./cp31_page";
 import A2oJ from "./A2oj_page";
 
@@ -16,105 +16,148 @@ const Cp_Sheets = () => {
     }
   };
 
-  // Content card component to match the style of ContestCard from UpcomingContests
-  const SheetCard = ({ title, icon, description, isActive, onClick }) => (
-    <div 
-      className={`bg-white rounded-xl shadow-md border ${isActive ? 'border-indigo-200' : 'border-indigo-50'} overflow-hidden hover:shadow-lg transition-all duration-200 cursor-pointer h-full`}
-      onClick={onClick}
-    >
-      <div className="h-full flex flex-col">
-        {/* Top: Icon and indicator */}
-        <div className={`p-4 ${isActive ? 'bg-indigo-100' : 'bg-indigo-50'} flex justify-center items-center`}>
-          <div className="text-center">
-            <div className={`p-3 rounded-full ${isActive ? 'bg-indigo-600' : 'bg-white'} inline-flex mb-2`}>
-              {React.cloneElement(icon, { 
-                className: `h-6 w-6 ${isActive ? 'text-white' : 'text-indigo-600'}`
-              })}
-            </div>
-            <p className={`font-bold text-lg ${isActive ? 'text-indigo-800' : 'text-indigo-600'}`}>
-              {title}
-            </p>
-            {isActive && (
-              <div className="mt-2 bg-indigo-200 text-indigo-800 py-1 px-3 rounded-full inline-block text-sm">
-                Active
-              </div>
-            )}
-          </div>
-        </div>
-
-        {/* Bottom: Sheet details */}
-        <div className="p-4 flex-1 flex flex-col">
-          <div className="flex-1">
-            <p className="text-gray-600 text-sm">{description}</p>
-          </div>
-
-          <div className="mt-4">
-            <button 
-              onClick={(e) => {
-                e.stopPropagation();
-                onClick();
-              }}
-              className={`w-full ${
-                isActive 
-                  ? 'bg-indigo-600 hover:bg-indigo-700 text-white' 
-                  : 'bg-white hover:bg-indigo-50 text-indigo-600 border border-indigo-200'
-              } py-2 px-4 rounded-md text-sm transition-colors duration-200`}
-            >
-              {isActive ? 'Currently Viewing' : 'View Sheet'}
-            </button>
-          </div>
-        </div>
-      </div>
-    </div>
-  );
+  // Tab data with black and white theme
+  const tabs = [
+    {
+      title: "CP31 Sheet",
+      icon: <Code />,
+      description: "A structured problem set covering key competitive programming concepts",
+      color: "#000000", // black
+      lightColor: "#F5F5F5", // light gray
+      problemCount: 450,
+      topics: 31
+    },
+    {
+      title: "A2OJ Ladder", 
+      icon: <Layers />,
+      description: "Difficulty-based problem sets organized as a ladder",
+      color: "#000000", // black
+      lightColor: "#F5F5F5", // light gray
+      problemCount: 1350,
+      topics: 42
+    }
+  ];
 
   return (
-    <div className="bg-white rounded-xl shadow-lg p-6">
-      <h2 className="text-2xl font-bold text-indigo-700 mb-6">
+    <div className="bg-white rounded-xl shadow-sm p-6">
+      <h2 className="text-2xl font-bold text-black mb-6">
         Competitive Programming Resources
       </h2>
 
-      {/* Sheet Selection Section - Now Horizontal */}
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-8">
-        <SheetCard 
-          title="CP31 Sheet" 
-          icon={<Code />}
-          description="A structured problem set covering key competitive programming concepts. Perfect for systematic practice."
-          isActive={activeTab === 0}
-          onClick={() => handleTabChange(0)}
-        />
+      {/* Tab Navigation */}
+      <div className="relative mb-8">
+        {/* Decorative background */}
+        <div className="absolute inset-0 bg-gray-50 rounded-xl -z-10"></div>
         
-        <SheetCard 
-          title="A2OJ Ladder" 
-          icon={<Layers />}
-          description="Difficulty-based problem sets organized as a ladder. Great for progressive skill improvement."
-          isActive={activeTab === 1}
-          onClick={() => handleTabChange(1)}
-        />
+        <div className="p-4">
+          {/* Modern tab navigation with pill style */}
+          <div className="inline-flex p-1 rounded-lg bg-white shadow-md">
+            {tabs.map((tab, index) => (
+              <button
+                key={index}
+                onClick={() => handleTabChange(index)}
+                style={{
+                  backgroundColor: activeTab === index ? tab.color : 'transparent',
+                }}
+                className={`
+                  py-2 px-4 rounded-lg transition-all duration-300 font-medium text-sm
+                  flex items-center gap-2 relative overflow-hidden
+                  ${activeTab === index 
+                    ? 'text-white shadow-md' 
+                    : 'text-gray-700 hover:bg-gray-50'}
+                `}
+              >
+                {/* Animated background for inactive tabs on hover */}
+                {activeTab !== index && (
+                  <div 
+                    className="absolute inset-0 opacity-0 hover:opacity-10 transition-opacity duration-300"
+                    style={{ backgroundColor: tab.color }}
+                  ></div>
+                )}
+                
+                {React.cloneElement(tab.icon, { 
+                  className: `h-4 w-4 ${activeTab === index ? 'text-white' : ''}`
+                })}
+                {tab.title}
+              </button>
+            ))}
+          </div>
+          
+          {/* Active tab content preview */}
+          <div className="mt-6 p-5 bg-white rounded-lg shadow-sm border border-gray-100 relative">
+            {/* Tab indicator pill */}
+            <div 
+              className="absolute -top-3 left-8 px-3 py-1 rounded-full text-xs font-semibold text-white"
+              style={{ backgroundColor: tabs[activeTab].color }}
+            >
+              {tabs[activeTab].title}
+            </div>
+            
+            <div className="flex flex-col md:flex-row gap-6 items-center">
+              {/* Icon display */}
+              <div 
+                className="flex items-center justify-center w-16 h-16 rounded-full"
+                style={{ backgroundColor: tabs[activeTab].lightColor }}
+              >
+                {React.cloneElement(tabs[activeTab].icon, { 
+                  style: { color: tabs[activeTab].color },
+                  className: "h-8 w-8"
+                })}
+              </div>
+              
+              {/* Content preview */}
+              <div className="flex-1">
+                <h3 className="font-semibold text-lg text-gray-800 mb-2">{tabs[activeTab].title}</h3>
+                <p className="text-gray-600 mb-4">{tabs[activeTab].description}</p>
+                
+                {/* Stats badges */}
+                <div className="flex flex-wrap gap-3">
+                  <div className="inline-flex items-center gap-1 px-3 py-1 bg-gray-100 rounded-full text-xs font-medium text-gray-700">
+                    <Hash className="h-3 w-3" />
+                    <span>{tabs[activeTab].problemCount}+ Problems</span>
+                  </div>
+                  <div className="inline-flex items-center gap-1 px-3 py-1 bg-gray-100 rounded-full text-xs font-medium text-gray-700">
+                    <Activity className="h-3 w-3" />
+                    <span>{tabs[activeTab].topics} Topics</span>
+                  </div>
+                  <div 
+                    className="inline-flex items-center gap-1 px-3 py-1 rounded-full text-xs font-medium text-white"
+                    style={{ backgroundColor: tabs[activeTab].color }}
+                  >
+                    <ArrowRight className="h-3 w-3" />
+                    <span>Currently Viewing</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
       </div>
 
       {/* Content Area */}
-      <div className="bg-white rounded-xl shadow-md border border-indigo-50 p-6 mt-6">
+      <div 
+        className="bg-white rounded-xl shadow-sm border border-gray-100 p-6 transition-all duration-300"
+      >
         {page}
       </div>
 
       {/* Stats Section */}
       <div className="mt-12">
-        <div className="bg-white rounded-xl shadow-md p-6 border border-indigo-50">
-          <h2 className="text-xl font-bold text-indigo-800 mb-4">
+        <div className="bg-white rounded-xl shadow-sm p-6 border border-gray-100">
+          <h2 className="text-xl font-bold text-black mb-4">
             Resource Statistics
           </h2>
           <div className="grid md:grid-cols-3 gap-6">
-            <div className="text-center p-4 bg-blue-50 rounded-lg">
-              <div className="text-3xl font-bold text-blue-600 mb-1">1800+</div>
+            <div className="text-center p-4 bg-gray-50 rounded-lg">
+              <div className="text-3xl font-bold text-black mb-1">1800+</div>
               <p className="text-gray-600">Curated Problems</p>
             </div>
-            <div className="text-center p-4 bg-indigo-50 rounded-lg">
-              <div className="text-3xl font-bold text-indigo-600 mb-1">50+</div>
+            <div className="text-center p-4 bg-gray-50 rounded-lg">
+              <div className="text-3xl font-bold text-black mb-1">50+</div>
               <p className="text-gray-600">Algorithm Types</p>
             </div>
-            <div className="text-center p-4 bg-purple-50 rounded-lg">
-              <div className="text-3xl font-bold text-purple-600 mb-1">16+</div>
+            <div className="text-center p-4 bg-gray-50 rounded-lg">
+              <div className="text-3xl font-bold text-black mb-1">16+</div>
               <p className="text-gray-600">Difficulty Levels</p>
             </div>
           </div>
@@ -123,8 +166,8 @@ const Cp_Sheets = () => {
 
       {/* Tips Section */}
       <div className="mt-12">
-        <div className="bg-white rounded-xl shadow-md p-6 border border-indigo-50">
-          <h2 className="text-xl font-bold text-indigo-800 mb-4">
+        <div className="bg-white rounded-xl shadow-sm p-6 border border-gray-100">
+          <h2 className="text-xl font-bold text-black mb-4">
             Practice Tips
           </h2>
           <div className="grid md:grid-cols-3 gap-6">

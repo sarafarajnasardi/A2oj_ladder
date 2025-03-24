@@ -20,7 +20,6 @@ const App = () => {
         <Route path="/Division_ladder" element={<Division_Ladder/>} />
         <Route path="/CP31" element={<CP31/>} />
         <Route path="/CP31_ladder" element={<CP31_ladder/>} />
-
       </Routes>
     </BrowserRouter>
   );

@@ -1,7 +1,7 @@
 import React, { useState, useEffect, useCallback } from "react";
 import { Calendar, Clock, ExternalLink, AlertCircle } from "lucide-react";
 
-// Move helper functions outside the component to prevent recreation on each render
+// Helper functions (unchanged)
 const formatDate = (timestamp) => {
   const date = new Date(timestamp * 1000);
   return date.toLocaleDateString("en-US", {
@@ -51,6 +51,7 @@ const getBadgeColor = (type) => {
       return "bg-gray-100 text-gray-800";
   }
 };
+
 const generateGoogleCalendarLink = (contest) => {
   const startDate = new Date(contest.startTimeSeconds * 1000);
   const endDate = new Date(
@@ -58,7 +59,7 @@ const generateGoogleCalendarLink = (contest) => {
   );
 
   const formatDateTime = (date) =>
-    date.toISOString().replace(/-|:|\.\d+/g, ""); // Format: YYYYMMDDTHHmmssZ
+    date.toISOString().replace(/-|:|\.\d+/g, "");
 
   const start = formatDateTime(startDate);
   const end = formatDateTime(endDate);
@@ -72,15 +73,14 @@ const generateGoogleCalendarLink = (contest) => {
 
   return url.toString();
 };
+
 const UpcomingContests = () => {
   const [contests, setContests] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
   const [lastUpdated, setLastUpdated] = useState(new Date());
 
-  // Use useCallback to prevent function recreation on each render
   const fetchContests = useCallback(async () => {
-    
     try {
       setLoading(true);
       setError(null);
@@ -119,23 +119,23 @@ const UpcomingContests = () => {
     fetchContests();
   }, []);
 
-  // Contest card component to reduce JSX complexity
+  // Contest card component
   const ContestCard = ({ contest }) => (
     <div
       key={contest.id}
-      className="bg-white rounded-xl shadow-md border border-indigo-50 overflow-hidden hover:shadow-lg transition-all duration-200"
+      className="bg-white rounded-xl shadow-md border border-gray-200 overflow-hidden hover:shadow-lg transition-all duration-200"
     >
       <div className="md:flex">
         {/* Left side: Date and time */}
-        <div className="p-6 bg-indigo-50 md:w-64 flex flex-col justify-center items-center">
+        <div className="p-6 bg-gray-50 md:w-64 flex flex-col justify-center items-center">
           <div className="text-center">
-            <p className="text-indigo-900 font-semibold text-lg">
+            <p className="text-gray-900 font-semibold text-lg">
               {formatDate(contest.startTimeSeconds)}
             </p>
-            <p className="text-indigo-700 font-bold text-xl">
+            <p className="text-gray-700 font-bold text-xl">
               {formatTime(contest.startTimeSeconds)}
             </p>
-            <div className="mt-2 bg-indigo-100 text-indigo-800 py-1 px-3 rounded-full inline-block">
+            <div className="mt-2 bg-gray-200 text-gray-800 py-1 px-3 rounded-full inline-block">
               {getTimeUntil(contest.startTimeSeconds)}
             </div>
           </div>
@@ -152,7 +152,7 @@ const UpcomingContests = () => {
               >
                 {contest.type}
               </span>
-              <h2 className="text-xl font-bold text-gray-800 mt-2">
+              <h2 className="text-xl font-bold text-black mt-2">
                 {contest.name}
               </h2>
             </div>
@@ -160,30 +160,30 @@ const UpcomingContests = () => {
               href={`https://codeforces.com/contests`}
               target="_blank"
               rel="noopener noreferrer"
-              className="text-indigo-600 hover:text-indigo-800"
+              className="text-gray-600 hover:text-black"
             >
               <ExternalLink className="h-5 w-5" />
             </a>
           </div>
 
           <div className="mt-4 flex flex-wrap gap-4">
-            <div className="flex items-center text-gray-600">
+            <div className="flex items-center text-gray-700">
               <Clock className="h-4 w-4 mr-1" />
               <span>{formatDuration(contest.durationSeconds)}</span>
             </div>
           </div>
 
-          <div className="mt-4">
+          <div className="mt-4 flex space-x-2">
             <button 
             onClick={() => window.open(`https://codeforces.com/contestRegistration/${contest.id}`, "_blank")}
-            className="bg-indigo-600 hover:bg-indigo-700 text-white py-2 px-4 rounded-md text-sm transition-colors duration-200">
+            className="bg-black hover:bg-gray-800 text-white py-2 px-4 rounded-md text-sm transition-colors duration-200">
               Register for Contest
             </button>
             <button 
             onClick={() =>
               window.open(generateGoogleCalendarLink(contest), "_blank")
             }
-            className="ml-2 bg-white hover:bg-indigo-50 text-indigo-600 border border-indigo-200 py-2 px-4 rounded-md text-sm transition-colors duration-200">
+            className="bg-white hover:bg-gray-100 text-black border border-gray-300 py-2 px-4 rounded-md text-sm transition-colors duration-200">
               Add to Calendar
             </button>
           </div>
@@ -194,13 +194,13 @@ const UpcomingContests = () => {
 
   return (
     <div className="bg-white rounded-xl shadow-lg p-6">
-      <h2 className="text-2xl font-bold text-indigo-700 mb-6">
+      <h2 className="text-2xl font-bold text-black mb-6">
         Upcoming Codeforces Contests
       </h2>
 
       {loading ? (
         <div className="flex justify-center items-center h-64">
-          <div className="animate-spin rounded-full h-12 w-12 border-t-2 border-b-2 border-indigo-500"></div>
+          <div className="animate-spin rounded-full h-12 w-12 border-t-2 border-b-2 border-black"></div>
         </div>
       ) : error ? (
         <div className="bg-red-50 border-l-4 border-red-500 p-4 mb-8 rounded-md">
@@ -227,16 +227,16 @@ const UpcomingContests = () => {
 
       {/* Tips Section */}
       <div className="mt-12">
-        <div className="bg-white rounded-xl shadow-md p-6 border border-indigo-50">
-          <h2 className="text-xl font-bold text-indigo-800 mb-4">
+        <div className="bg-white rounded-xl shadow-md p-6 border border-gray-200">
+          <h2 className="text-xl font-bold text-black mb-4">
             Contest Preparation Tips
           </h2>
           <div className="grid md:grid-cols-3 gap-6">
             <div>
-              <h3 className="font-semibold text-gray-800 mb-2">
+              <h3 className="font-semibold text-black mb-2">
                 Before the Contest
               </h3>
-              <ul className="text-gray-600 space-y-1">
+              <ul className="text-gray-700 space-y-1">
                 <li>• Review common algorithms</li>
                 <li>• Prepare code templates</li>
                 <li>• Get proper rest</li>
@@ -244,10 +244,10 @@ const UpcomingContests = () => {
               </ul>
             </div>
             <div>
-              <h3 className="font-semibold text-gray-800 mb-2">
+              <h3 className="font-semibold text-black mb-2">
                 During the Contest
               </h3>
-              <ul className="text-gray-600 space-y-1">
+              <ul className="text-gray-700 space-y-1">
                 <li>• Read all problems first</li>
                 <li>• Start with easier problems</li>
                 <li>• Test your solutions thoroughly</li>
@@ -255,10 +255,10 @@ const UpcomingContests = () => {
               </ul>
             </div>
             <div>
-              <h3 className="font-semibold text-gray-800 mb-2">
+              <h3 className="font-semibold text-black mb-2">
                 After the Contest
               </h3>
-              <ul className="text-gray-600 space-y-1">
+              <ul className="text-gray-700 space-y-1">
                 <li>• Review editorial solutions</li>
                 <li>• Learn from your mistakes</li>
                 <li>• Practice similar problems</li>
