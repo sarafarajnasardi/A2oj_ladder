@@ -1,159 +1,308 @@
 import React, { useState } from 'react';
 import { 
-  Layers, 
-  BookOpen, 
-  Zap, 
-  Star, 
+  ChevronDown, 
+  ChevronUp, 
   Check, 
-  TrendingUp, 
-  Award 
+  Star, 
+  BookOpen, 
+  Code 
 } from 'lucide-react';
 
-const LearningPaths = () => {
-  const [selectedPath, setSelectedPath] = useState(null);
+const RoadmapData = [
+  {
+    title: "Basics of Programming",
+    topics: [
+      "C++ Basic",
+      "I/O, Conditional Statements", 
+      "Loops, Pointers",
+      "Array, String",
+      "Function"
+    ]
+  },
+  {
+    title: "Time and Space Complexity",
+    topics: [
+      "Time Complexity",
+      "Space Complexity", 
+      "Asymptotic Notation"
+    ]
+  },
+  {
+    title: "STL",
+    topics: [
+      "Vector and Pair",
+      "Iterator",
+      "Map and Set",
+      "Stack, Queue, Dequeue and Priority-Queue", 
+      "STL algorithms",
+      "Sorting and Comparator Function"
+    ]
+  },
+  {
+    title: "Array's Algorithm",
+    topics: [
+      "Kadane's Algorithm",
+      "Window Sliding",
+      "Dutch National Flag Algorithm", 
+      "Searching and Sorting",
+      "Prefix and Suffix sum",
+      "Two Pointer",
+      "2D Array"
+    ]
+  },
+  {
+    title: "String's Algorithm",
+    topics: [
+      "KMP Algorithm",
+      "Rabin Karp Algorithm", 
+      "Z-Algorithm"
+    ]
+  },
+  {
+    title: "Greedy Algorithm",
+    topics: [
+      "Activity Selection Problems",
+      "Egyptian Fraction", 
+      "Job Sequencing",
+      "Minimum Swaps for Bracket Balancing"
+    ]
+  },
+  {
+    title: "Binary Search",
+    topics: [
+      "Binary Search I",
+      "Binary Search II", 
+      "Binary Search III",
+      "Ternary Search"
+    ]
+  },
+  {
+    title: "Number Theory",
+    topics: [
+      "Euclid's GCD algorithm and Extended Euclid algorithm",
+      "Basic Modular Arithmetic",
+      "Modular Exponentiation", 
+      "Modular Inverse",
+      "Prime Factorization of a number",
+      "Sieve of Eratosthenes",
+      "Segmented Sieve",
+      "Euler Totient Function",
+      "Fermat's Little Theorem",
+      "NCR mod p calculation",
+      "Lucas Theorem",
+      "Chinese Remainder Theorem",
+      "Mobius Function"
+    ]
+  },
+  {
+    title: "Recursion and Backtracking",
+    topics: [
+      "Recursion and Backtracking Basics",
+      "Subset Sum",
+      "Combination Sum", 
+      "N queens Problem",
+      "Sudoku Solver",
+      "Rat in a Maze"
+    ]
+  },
+  {
+    title: "Bit Manipulation",
+    topics: [
+      "Number System",
+      "Bitwise Operators", 
+      "Bit Masking",
+      "Binary Exponentiation"
+    ]
+  },
+  {
+    title: "Dynamic Programming",
+    topics: [
+      "Introduction",
+      "One Dimensional DP",
+      "Two Dimensional DP", 
+      "Digit DP",
+      "DP on Trees",
+      "DP with Bitmask",
+      "SOS DP",
+      "Beginner to Advanced",
+      "Non Trivial DP Tricks and Techniques",
+      "CF Blog"
+    ]
+  },
+  {
+    title: "Graph",
+    topics: [
+      "Graph Representation",
+      "DFS",
+      "BFS", 
+      "Bipartite Graph",
+      "Topological Sort",
+      "Kruskal's Algorithm",
+      "Prims's Algorithm",
+      "Dijkstra's Algorithm", 
+      "Bellman Ford's Algorithm",
+      "Floyd Warshall's Algorithm",
+      "Bridge",
+      "Articulation Points",
+      "Strongly Connected Components (SCC)",
+      "Tarjan's Algorithm for SCC"
+    ]
+  },
+  {
+    title: "Tree",
+    topics: [
+      "Traversal Techniques",
+      "Binary Tree, BST, Balanced Binary Tree",
+      "Binary Lifting",
+      "Bridges, BridgeTree, Cutpoits, SCC, DFS Tree", 
+      "Dynamic Programming on tree",
+      "2K Decomposition of tree (and Lowest Common Ancestor)",
+      "Kruskal Reconstruction Tree (KRT)",
+      "Set Merging",
+      "O(N^2) Distribution DP",
+      "'Re-rooting' tree DP",
+      "Centroid Decomposition",
+      "Heavy-Light Decomposition",
+      "UFDS on tree"
+    ]
+  },
+  {
+    title: "Miscellaneous Topics",
+    topics: [
+      "Trie",
+      "Segment Tree & Fenwick Tree",
+      "Game Theory", 
+      "Probability & Expectation",
+      "Matrix Exponention",
+      "Euler Tour"
+    ]
+  }
+];
 
-  const paths = [
-    {
-      id: 'beginner',
-      title: 'Beginner Path',
-      icon: <BookOpen className="h-6 w-6" />,
-      description: 'Master the fundamentals of competitive programming',
-      difficulty: 'Easy',
-      color: 'bg-green-100',
-      steps: [
-        'Learn basic syntax and input/output',
-        'Understand time and space complexity',
-        'Study basic data structures',
-        'Solve simple problem sets'
-      ]
-    },
-    {
-      id: 'intermediate',
-      title: 'Intermediate Path',
-      icon: <Zap className="h-6 w-6" />,
-      description: 'Dive deeper into algorithms and problem-solving techniques',
-      difficulty: 'Medium',
-      color: 'bg-blue-100',
-      steps: [
-        'Advanced data structures',
-        'Dynamic programming basics',
-        'Graph algorithms',
-        'Solve medium-level contest problems'
-      ]
-    },
-    {
-      id: 'advanced',
-      title: 'Advanced Path',
-      icon: <Award className="h-6 w-6" />,
-      description: 'Become an expert in complex algorithmic challenges',
-      difficulty: 'Hard',
-      color: 'bg-purple-100',
-      steps: [
-        'Advanced graph theory',
-        'Advanced dynamic programming',
-        'Computational geometry',
-        'Competitive programming advanced techniques'
-      ]
-    }
-  ];
+const UsefulLinks = [
+  "Codeforces",
+  "Codechef", 
+  "LeetCode",
+  "Atcoder",
+  "GeeksForGeeks", 
+  "OEIS",
+  "USACO Guide",
+  "CP-Algorithms",
+  "Topcoder",
+  "CSES"
+];
+
+const CPRoadmap = () => {
+  const [expandedSections, setExpandedSections] = useState({});
+  const [completedTopics, setCompletedTopics] = useState({});
+
+  const toggleSection = (title) => {
+    setExpandedSections(prev => ({
+      ...prev,
+      [title]: !prev[title]
+    }));
+  };
+
+  const toggleTopicCompletion = (section, topic) => {
+    const key = `${section}-${topic}`;
+    setCompletedTopics(prev => ({
+      ...prev,
+      [key]: !prev[key]
+    }));
+  };
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-gray-50 to-white">
-      <div className="container mx-auto px-4 py-16">
-        {/* Paths Introduction */}
-        <div className="text-center mb-16">
-          <div className="inline-block bg-black p-4 rounded-full shadow-lg mb-6">
-            <Layers className="h-8 w-8 text-white" />
-          </div>
-          <h1 className="text-3xl font-bold text-black mb-4">
-            Competitive Programming Learning Paths
-          </h1>
-          <p className="text-gray-600 max-w-2xl mx-auto">
-            Structured roadmaps to guide you from beginner to advanced competitive programmer
-          </p>
+    <div className="bg-white p-6 md:p-10 space-y-8">
+      <div className="text-center mb-8">
+        <div className="inline-block bg-black p-4 rounded-full shadow-lg mb-4">
+          <BookOpen className="h-8 w-8 text-white" />
         </div>
+        <h1 className="text-3xl font-bold mb-4">Competitive Programming Roadmap</h1>
+        <p className="text-gray-600 max-w-2xl mx-auto">
+          A comprehensive learning path to master competitive programming from basics to advanced topics
+        </p>
+      </div>
 
-        {/* Paths Grid */}
-        <div className="grid md:grid-cols-3 gap-8">
-          {paths.map((path) => (
+      {/* Roadmap Sections */}
+      <div className="space-y-6">
+        {RoadmapData.map((section, sectionIndex) => (
+          <div 
+            key={sectionIndex} 
+            className="bg-gray-50 rounded-2xl overflow-hidden shadow-sm"
+          >
             <div 
-              key={path.id}
-              onClick={() => setSelectedPath(path)}
-              className={`
-                bg-white rounded-2xl shadow-lg border border-gray-100 
-                p-8 cursor-pointer transform transition-all duration-300
-                hover:-translate-y-2 hover:shadow-xl
-                ${selectedPath?.id === path.id ? 'ring-4 ring-black' : ''}
-              `}
+              onClick={() => toggleSection(section.title)}
+              className="flex justify-between items-center p-6 cursor-pointer hover:bg-gray-100 transition"
             >
-              <div className={`p-4 rounded-full w-16 h-16 flex items-center justify-center mb-6 ${path.color}`}>
-                {path.icon}
+              <div className="flex items-center space-x-4">
+                <Star className="h-6 w-6 text-yellow-500" />
+                <h2 className="text-xl font-semibold">{section.title}</h2>
               </div>
-              <h3 className="text-xl font-bold text-black mb-3">{path.title}</h3>
-              <p className="text-gray-600 mb-4">{path.description}</p>
-              <div className="flex items-center text-sm">
-                <Star className="h-4 w-4 mr-2 text-yellow-500" />
-                <span className="font-medium text-gray-700">Difficulty: {path.difficulty}</span>
-              </div>
+              {expandedSections[section.title] ? (
+                <ChevronUp className="h-6 w-6 text-gray-600" />
+              ) : (
+                <ChevronDown className="h-6 w-6 text-gray-600" />
+              )}
             </div>
-          ))}
-        </div>
 
-        {/* Selected Path Details */}
-        {selectedPath && (
-          <div className="mt-16 bg-white rounded-2xl shadow-xl border border-gray-100 p-10">
-            <div className="flex items-center mb-8">
-              {selectedPath.icon}
-              <h2 className="text-2xl font-bold ml-4">{selectedPath.title}</h2>
-            </div>
-            <div className="grid md:grid-cols-2 gap-8">
-              <div>
-                <h3 className="text-xl font-semibold mb-4">Path Overview</h3>
-                <p className="text-gray-600">{selectedPath.description}</p>
-              </div>
-              <div>
-                <h3 className="text-xl font-semibold mb-4">Key Learning Steps</h3>
-                <ul className="space-y-3">
-                  {selectedPath.steps.map((step, index) => (
-                    <li 
-                      key={index} 
-                      className="flex items-center text-gray-700"
+            {expandedSections[section.title] && (
+              <div className="p-6 pt-0">
+                <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-4">
+                  {section.topics.map((topic, topicIndex) => (
+                    <div 
+                      key={topicIndex}
+                      className="flex items-center space-x-3 p-3 rounded-lg hover:bg-white hover:shadow-sm transition"
                     >
-                      <Check className="h-5 w-5 mr-3 text-green-500" />
-                      {step}
-                    </li>
+                      <button 
+                        onClick={() => toggleTopicCompletion(section.title, topic)}
+                        className={`
+                          w-6 h-6 rounded-full flex items-center justify-center
+                          ${completedTopics[`${section.title}-${topic}`] 
+                            ? 'bg-green-500 text-white' 
+                            : 'border-2 border-gray-300'}
+                        `}
+                      >
+                        {completedTopics[`${section.title}-${topic}`] && <Check className="h-4 w-4" />}
+                      </button>
+                      <span 
+                        className={`
+                          text-sm 
+                          ${completedTopics[`${section.title}-${topic}`] 
+                            ? 'line-through text-gray-500' 
+                            : 'text-gray-800'}
+                        `}
+                      >
+                        {topic}
+                      </span>
+                    </div>
                   ))}
-                </ul>
+                </div>
               </div>
-            </div>
-            <div className="mt-8 text-center">
-              <button className="px-10 py-3 bg-black text-white rounded-lg font-bold hover:bg-gray-900 transition-colors">
-                Start This Path
-              </button>
-            </div>
+            )}
           </div>
-        )}
+        ))}
+      </div>
 
-        {/* Additional Guidance */}
-        <div className="mt-16 text-center bg-gray-50 rounded-2xl p-12">
-          <TrendingUp className="h-12 w-12 mx-auto mb-6 text-black" />
-          <h3 className="text-2xl font-bold mb-4">Your Learning Journey</h3>
-          <p className="text-gray-600 max-w-2xl mx-auto mb-8">
-            Each path is designed to progressively build your skills. Start where you're comfortable, 
-            and don't hesitate to challenge yourself by exploring more advanced paths.
-          </p>
-          <div className="flex justify-center space-x-4">
-            <button className="px-8 py-3 bg-black text-white rounded-lg font-bold hover:bg-gray-900">
-              Assess Your Level
-            </button>
-            <button className="px-8 py-3 bg-white text-black rounded-lg font-bold border hover:bg-gray-100">
-              View All Resources
-            </button>
-          </div>
+      {/* Useful Links */}
+      <div className="bg-gray-50 rounded-2xl p-8 mt-10">
+        <div className="flex items-center mb-6">
+          <Code className="h-8 w-8 mr-4 text-black" />
+          <h2 className="text-2xl font-bold">Useful Learning Resources</h2>
+        </div>
+        <div className="grid md:grid-cols-5 gap-4">
+          {UsefulLinks.map((link, index) => (
+            <a 
+              key={index} 
+              href="#" 
+              className="bg-white p-4 rounded-lg text-center font-medium hover:bg-gray-100 transition shadow-sm"
+            >
+              {link}
+            </a>
+          ))}
         </div>
       </div>
     </div>
   );
 };
 
-export default LearningPaths;
+export default CPRoadmap;
