@@ -3,7 +3,6 @@ import { useNavigate } from "react-router-dom";
 import { Code, Layers, Calendar, BookOpen } from "lucide-react";
 import Cp_Sheets from "./cp_sheets";
 import UpcomingContestsPage from "./upcoming_contest";
-import CPRoadmap from "./path";
 const CoursePage = () => {
   const [activeTab, setActiveTab] = useState(0);
   const navigate = useNavigate();
@@ -61,17 +60,6 @@ const CoursePage = () => {
           >
             <Calendar className="h-4 w-4 mr-2" />
             Contests
-          </button>
-          <button
-            onClick={() => handleTabChange(2)}
-            className={`px-5 py-2 rounded-lg text-sm font-medium transition-all duration-200 flex items-center ${
-              activeTab === 2 
-                ? "bg-black text-white shadow-md" 
-                : "bg-gray-100 text-gray-700 hover:bg-gray-200"
-            }`}
-          >
-            <BookOpen className="h-4 w-4 mr-2" />
-            CP Roadmap
           </button>
         </div>
       </div>
